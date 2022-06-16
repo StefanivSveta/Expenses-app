@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import ExpenseForm from './ExpenseForm'
 import './NewExpense.css'
 
 const NewExpense = (props) => {
+  const [formIsOpen, setFormIsOpen] = useState(false);
+  
+  const viewFormChangeHandler = event => {
+    setFormIsOpen(true);
+  };
   const onSaveExpenseDataHandler = (enteredExpenseData) => {
     const expenseData = {
       ...enteredExpenseData,
@@ -13,7 +18,8 @@ const NewExpense = (props) => {
   }
   return (
     <div className='new-expense'>
-      <ExpenseForm onSaveExpenseData={onSaveExpenseDataHandler}/>
+      {formIsOpen && <ExpenseForm onSaveExpenseData={onSaveExpenseDataHandler}/>}
+      {!formIsOpen && <button onClick={viewFormChangeHandler}>Add Expense</button>}
     </div>
   )
 }
